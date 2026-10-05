@@ -1,0 +1,318 @@
+/* ==========================================================================
+   Dermverse design system
+   Palette derived from the clinic's gold "JAD" monogram, set on warm
+   espresso and ivory neutrals. Every screen uses only these tokens.
+   ========================================================================== */
+@import "tailwindcss";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/cormorant-garamond/500.css";
+@import "@fontsource/cormorant-garamond/600.css";
+
+@theme {
+  /* Typography */
+  --font-sans: "Inter", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --font-display: "Cormorant Garamond", "Georgia", serif;
+
+  /* Gold, sampled from the logo (#F4EDCC, #E4C275, #C38C2B, #925405) */
+  --color-gold-50: #fbf7ec;
+  --color-gold-100: #f4edcc;
+  --color-gold-200: #ecd9a6;
+  --color-gold-300: #e4c275;
+  --color-gold-400: #d6af60;
+  --color-gold-500: #c38c2b;
+  --color-gold-600: #a8741f;
+  --color-gold-700: #865a12; /* gold text on light surfaces (AA 5.6:1 on white) */
+  --color-gold-800: #6b470e;
+
+  /* Warm neutrals */
+  --color-ivory: #faf7f2; /* app background */
+  --color-cream: #f4efe6; /* subtle fills, table headers */
+  --color-sand: #ebe4d8; /* hover fills */
+  --color-line: #e5ddd0; /* hairlines */
+  --color-line-strong: #d3c7b5; /* input borders */
+  --color-ink: #1e1913; /* primary text (16:1) */
+  --color-ink-2: #574e44; /* secondary text (8:1) */
+  --color-ink-3: #776c60; /* tertiary text, placeholders (5:1) */
+
+  /* Espresso: navigation & primary buttons */
+  --color-espresso: #1c1712;
+  --color-espresso-2: #29221b;
+  --color-espresso-3: #3a3027;
+  --color-on-espresso: #efe7da;
+  --color-on-espresso-2: #b9ac9b;
+
+  /* Status, always paired with an icon and a word, never colour alone */
+  --color-success: #1f6b4a;
+  --color-success-bg: #e4f1e9;
+  --color-warning: #8a5a00;
+  --color-warning-bg: #fbefd5;
+  --color-danger: #a23a24;
+  --color-danger-bg: #f9e5df;
+  --color-info: #2b5a78;
+  --color-info-bg: #e5eef4;
+  --color-neutral: #5c5550;
+  --color-neutral-bg: #eeeae4;
+
+  --radius-xl: 14px;
+  --radius-2xl: 20px;
+
+  --shadow-card: 0 1px 2px rgb(30 25 19 / 0.04), 0 4px 16px -6px rgb(30 25 19 / 0.08);
+  --shadow-pop: 0 18px 50px -12px rgb(30 25 19 / 0.28), 0 2px 6px rgb(30 25 19 / 0.06);
+  --shadow-gold: 0 6px 20px -6px rgb(168 116 31 / 0.55);
+}
+
+@layer base {
+  html {
+    font-size: 15px; /* clinic staff read from a distance; slightly larger base */
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-ivory text-ink font-sans;
+    font-feature-settings: "cv11", "ss01";
+  }
+  ::selection {
+    background: var(--color-gold-200);
+    color: var(--color-ink);
+  }
+  /* One visible focus style everywhere (WCAG 2.4.7) */
+  :focus-visible {
+    outline: 2.5px solid var(--color-gold-600);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  /* ---------- Type scale ---------- */
+  .t-display {
+    @apply font-display font-semibold text-ink;
+    font-size: 2.15rem;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .t-title {
+    @apply font-display font-semibold text-ink;
+    font-size: 1.55rem;
+    line-height: 1.2;
+  }
+  .t-heading {
+    @apply text-[1.02rem] font-semibold text-ink;
+    line-height: 1.4;
+  }
+  .t-overline {
+    @apply text-[0.72rem] font-semibold uppercase text-ink-3;
+    letter-spacing: 0.09em;
+  }
+  .t-num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Surfaces ---------- */
+  .card {
+    @apply bg-white rounded-2xl border border-line;
+    box-shadow: var(--shadow-card);
+  }
+  .card-pad {
+    @apply p-5 sm:p-6;
+  }
+  .gold-rule {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold-400), transparent);
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl font-medium whitespace-nowrap select-none
+      transition-[background,box-shadow,color,border-color,transform] duration-150
+      disabled:opacity-50 disabled:cursor-not-allowed active:translate-y-px;
+    height: 2.6rem;
+    padding: 0 1.05rem;
+    font-size: 0.93rem;
+  }
+  .btn-sm {
+    height: 2.15rem;
+    padding: 0 0.8rem;
+    font-size: 0.87rem;
+    @apply rounded-lg;
+  }
+  .btn-lg {
+    height: 3rem;
+    padding: 0 1.4rem;
+    font-size: 1rem;
+  }
+  /* Signature action, one per screen */
+  .btn-gold {
+    @apply text-ink font-semibold;
+    background: linear-gradient(180deg, #e2bf6c 0%, #c99633 55%, #b98425 100%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.45), var(--shadow-gold);
+  }
+  .btn-gold:hover:not(:disabled) {
+    background: linear-gradient(180deg, #e8c879 0%, #d09f3c 55%, #bf8a2a 100%);
+  }
+  .btn-primary {
+    @apply bg-espresso text-on-espresso hover:bg-espresso-3;
+  }
+  .btn-secondary {
+    @apply bg-white text-ink border border-line-strong hover:bg-cream hover:border-ink-3/40;
+  }
+  .btn-ghost {
+    @apply text-ink-2 hover:bg-sand hover:text-ink;
+  }
+  .btn-danger {
+    @apply bg-danger text-white hover:brightness-110;
+  }
+  .btn-danger-ghost {
+    @apply text-danger hover:bg-danger-bg;
+  }
+  .icon-btn {
+    @apply inline-flex items-center justify-center rounded-lg text-ink-2 hover:bg-sand hover:text-ink transition-colors;
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+
+  /* ---------- Form controls ---------- */
+  .field-label {
+    @apply block text-[0.86rem] font-medium text-ink-2 mb-1.5;
+  }
+  .input {
+    @apply w-full rounded-xl border border-line-strong bg-white text-ink placeholder:text-ink-3
+      transition-[border-color,box-shadow] duration-150 outline-none;
+    height: 2.65rem;
+    padding: 0 0.85rem;
+    font-size: 0.95rem;
+  }
+  .input:hover {
+    border-color: #bfb19c;
+  }
+  .input:focus,
+  .input:focus-visible {
+    border-color: var(--color-gold-600);
+    box-shadow: 0 0 0 3.5px rgb(195 140 43 / 0.22);
+    outline: none;
+  }
+  .input[aria-invalid="true"] {
+    border-color: var(--color-danger);
+    box-shadow: 0 0 0 3px rgb(162 58 36 / 0.12);
+  }
+  .input:disabled {
+    @apply bg-cream text-ink-3;
+  }
+  textarea.input {
+    height: auto;
+    padding: 0.65rem 0.85rem;
+    line-height: 1.5;
+  }
+  select.input {
+    appearance: none;
+    padding-right: 2.2rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23574e44' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+  }
+  .input-sm {
+    height: 2.3rem;
+    font-size: 0.9rem;
+    @apply rounded-lg;
+    padding: 0 0.65rem;
+  }
+  .field-error {
+    @apply mt-1.5 flex items-center gap-1.5 text-[0.84rem] font-medium text-danger;
+  }
+  .field-hint {
+    @apply mt-1.5 text-[0.82rem] text-ink-3;
+  }
+
+  /* ---------- Tables ---------- */
+  .table {
+    @apply w-full text-left;
+    font-size: 0.92rem;
+  }
+  .table thead th {
+    @apply text-[0.72rem] uppercase text-ink-3 bg-cream/70 px-4 py-3 border-b border-line font-semibold;
+    letter-spacing: 0.09em;
+  }
+  .table tbody td {
+    @apply px-4 py-3.5 border-b border-line/70 align-middle;
+  }
+  .table tbody tr:last-child td {
+    @apply border-b-0;
+  }
+  .table tbody tr.row-link {
+    @apply cursor-pointer transition-colors hover:bg-gold-50;
+  }
+
+  /* ---------- Segmented control (radio group) ---------- */
+  .segment {
+    @apply inline-flex flex-wrap gap-1 rounded-xl bg-cream p-1 border border-line;
+  }
+  .segment-item {
+    @apply inline-flex items-center gap-1.5 rounded-lg px-3 font-medium text-ink-2 cursor-pointer transition-all;
+    height: 2.2rem;
+    font-size: 0.88rem;
+  }
+  .segment-item:hover {
+    @apply text-ink bg-white/60;
+  }
+  .segment-item[data-checked="true"] {
+    @apply bg-white text-ink shadow-sm ring-1 ring-gold-300;
+  }
+
+  /* ---------- Skeleton ---------- */
+  .skeleton {
+    @apply rounded-md;
+    background: linear-gradient(90deg, var(--color-cream) 0%, var(--color-sand) 50%, var(--color-cream) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes dialog-in {
+  from { opacity: 0; transform: translate(-50%, -48%) scale(0.97); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes sheet-in {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.anim-overlay { animation: overlay-in 160ms ease-out; }
+.anim-dialog { animation: dialog-in 200ms cubic-bezier(0.16, 1, 0.3, 1); }
+.anim-pop { animation: pop-in 140ms ease-out; }
+@media (max-width: 639px) {
+  .anim-dialog { animation: sheet-in 240ms cubic-bezier(0.16, 1, 0.3, 1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Utility: hide from view but keep for screen readers */
+.sr-only-focusable:not(:focus) {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
