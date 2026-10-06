@@ -123,3 +123,7 @@ SIMPLE_JWT = {
 }
 
 CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS")
+
+# Behind a hosting proxy that terminates HTTPS (e.g. Render): trust its header and origin list.
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
